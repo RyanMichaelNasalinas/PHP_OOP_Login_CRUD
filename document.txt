@@ -1,0 +1,21 @@
+1. create database oop_crud; 
+
+2.create table users(
+	id int(11) not null PRIMARY KEY AUTO_INCREMENT,
+    name varchar(256) not null,
+    lastname varchar(256) not null,
+    username varchar(256) not null,
+    password varchar(256) not null,
+    email varchar(256) not null
+);
+
+
+
+
+
+
+// Instruction 
+
+Create database first and paste the code above in number 1
+
+Create table  paste the code above in number 2
