@@ -16,8 +16,8 @@ class Session extends Database {
             $_SESSION['username'] = $row['username'];
             $_SESSION['user_type'] = $row['user_type'];
         }
+        
         if($num_rows > 0) {
-           
             return true;
         } else {
             return false;

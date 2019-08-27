@@ -27,6 +27,23 @@ class Crud {
         return $rows;
     }
 
+    public function display_user_by_id($id) {
+        $sql = "SELECT * FROM users WHERE id = $id";
+
+        $result = $this->connect->query($sql);
+
+        if($result == false) {
+            return false;
+        }
+
+        $rows = [];
+
+        while($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }    
+
     public function insert_user() {
 
         $stmt = $this->connect->prepare("INSERT into users (`name`,`lastname`,`username`,`password`,`email`) VALUES (?,?,?,?,?);");

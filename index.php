@@ -7,8 +7,6 @@ if (empty($_SESSION['user_id'])) {
 }
 
 ?>
-
-
 <body class="bg-dark">
     <div class="container mt-5">
         <div class="text-white">
@@ -19,7 +17,17 @@ if (empty($_SESSION['user_id'])) {
                 </div>
 
                 <table class="table text-white table-bordered text-center">
-                    <?php $result = $database->display_user(); ?>
+                    <?php
+
+                    $result = $database->display_user(); 
+
+                    if ($_SESSION['user_type'] == 'admin') {
+                        $result = $database->display_user(); 
+                    } elseif($_SESSION['user_type'] == 'user') {
+                        $result = $database->display_user_by_id($_SESSION['user_id']);
+                    }
+                    
+                    ?>
                     <thead>
                         <th>Name</th>
                         <th>Lastname</th>
