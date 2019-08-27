@@ -1,28 +1,26 @@
-<?php include "includes/header.php"; ?>
+<?php 
+    include "includes/header.php"; 
 
-<?php
+    $msg = "";
 
-$msg = "";
-if (isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    if (isset($_POST['login'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
-    $login = new Session;
+        $login = new Session;
 
-    if ($login_user = $login->login_user($username, $password)) {
-        header("Location: index.php");
-    } elseif (empty($username) && empty($password)) {
-        $msg = "This fields should not be empty";
-    } elseif ($_POST['username'] != $username && $_POST['password'] != $password) {
-        $msg = "Username or Password is incorrect";
-    } else {
-        header("Location: login.php");
-        return false;
+        if ($login_user = $login->login_user($username, $password)) {
+            header("Location: index.php");
+        } elseif (empty($username) && empty($password)) {
+            $msg = "This fields should not be empty";
+        } elseif ($_POST['username'] != $username && $_POST['password'] != $password) {
+            $msg = "Username or Password is incorrect";
+        } else {
+            header("Location: login.php");
+            return false;
+        }
     }
-}
-
 ?>
-
 <body class="bg-dark">
     <div class="container">
         <div class="row mx-auto my-5">
@@ -44,7 +42,7 @@ if (isset($_POST['login'])) {
                                 <label>Password</label>
                                 <input type="password" name="password" class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group text-center">
                                 <input type="submit" name="login" value="Login" class="btn btn-dark">
                                 <input type="submit" value="cancel" class="btn btn-danger">
                             </div>

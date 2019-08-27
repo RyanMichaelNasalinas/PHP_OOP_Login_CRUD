@@ -1,11 +1,9 @@
-<?php include "includes/header.php"; ?>
-
 <?php
+    include "includes/header.php"; 
 
-if (empty($_SESSION['user_id'])) {
-    header("Location: login.php");
-}
-
+    if (empty($_SESSION['user_id'])) {
+        header("Location: login.php");
+    }
 ?>
 <body class="bg-dark">
     <div class="container mt-5">
@@ -18,15 +16,13 @@ if (empty($_SESSION['user_id'])) {
 
                 <table class="table text-white table-bordered text-center">
                     <?php
-
-                    $result = $database->display_user(); 
-
-                    if ($_SESSION['user_type'] == 'admin') {
                         $result = $database->display_user(); 
-                    } elseif($_SESSION['user_type'] == 'user') {
-                        $result = $database->display_user_by_id($_SESSION['user_id']);
-                    }
-                    
+
+                        if ($_SESSION['user_type'] == 'admin') {
+                            $result = $database->display_user(); 
+                        } elseif($_SESSION['user_type'] == 'user') {
+                            $result = $database->display_user_by_id($_SESSION['user_id']);
+                        }
                     ?>
                     <thead>
                         <th>Name</th>
@@ -44,7 +40,6 @@ if (empty($_SESSION['user_id'])) {
                             <td><?php echo $res['username']; ?></td>
                             <td><?php echo $res['password']; ?></td>
                             <td><?php echo $res['email']; ?></td>
-
                             <td>
 
                                 <a class="btn btn-primary" href="index.php?update&id=<?php echo $res['id']; ?>" name="edit">Edit</a>
@@ -121,12 +116,13 @@ if (empty($_SESSION['user_id'])) {
 
                     ?>
                     <?php
-                    if (isset($_GET['update'])) :
+                    if (isset($_GET['update'])):
                         $database->escape_string($id = $_GET['id']);
 
                         $result = $database->query("SELECT * FROM users WHERE id = $id");
                         while ($row = $result->fetch_assoc()) :
                             ?>
+                             
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" name="name" id="name" class="form-control" value="<?= $row['name']; ?>">
@@ -156,8 +152,10 @@ if (empty($_SESSION['user_id'])) {
                         &nbsp;
                         <button class="btn btn-danger" name="cancel" id="cancel" type="button" onClick="window.location.href='index.php'">Cancel</button>
                     </div>
+                        
                     <?php endwhile; ?>
                     <?php else : ?>
+                         <?php if($_SESSION['user_type'] == "admin"): ?>   
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" name="name" id="name" class="form-control" value="<?= (isset($_POST['name'])) ?  Crud::echo_char($_POST['name']) : ''; ?>">
@@ -187,6 +185,7 @@ if (empty($_SESSION['user_id'])) {
                         &nbsp;
                         <button class="btn btn-danger" name="cancel" id="cancel" type="button" onClick="window.location.href='index.php'">Cancel</button>
                     </div>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </form>
             </div>
