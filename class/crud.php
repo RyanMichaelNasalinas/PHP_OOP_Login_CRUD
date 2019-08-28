@@ -47,7 +47,7 @@ class Crud {
     public function insert_user() {
 
         $stmt = $this->connect->prepare("INSERT into users (`name`,`lastname`,`username`,`password`,`email`) VALUES (?,?,?,?,?);");
-        $stmt->bind_param("sssss", $this->name, $this->lastname, $this->username, $this->password, $this->email);
+        $stmt->bind_param("sssss", $this->name, $this->lastname, $this->username, password_hash($this->password,PASSWORD_DEFAULT), $this->email);
         $stmt->execute();
 
         if($stmt) {

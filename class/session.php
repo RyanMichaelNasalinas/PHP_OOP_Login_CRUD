@@ -1,6 +1,13 @@
 <?php 
 
 class Session extends Database {
+
+    public $password;
+    public static $msg;
+
+    public function password_verify($input_pass,$db_pass) {
+        return password_verify($input_pass,$db_pass);
+    }
     
     public function login_user($username, $password) {
         $database = new Database;
@@ -12,6 +19,7 @@ class Session extends Database {
             $num_rows = $result->num_rows;
 
             $row = $result->fetch_assoc();
+            $_SESSION['password'] =  $row['password'];
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['username'] = $row['username'];
             $_SESSION['user_type'] = $row['user_type'];

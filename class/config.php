@@ -9,8 +9,4 @@ define("DB",[
     "oop_crud"
 ]);
 
-
-
-
-
 ?>

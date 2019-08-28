@@ -1,25 +1,26 @@
 <?php 
     include "includes/header.php"; 
 
-    $msg = "";
+        if (isset($_POST['login'])) {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
 
-    if (isset($_POST['login'])) {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+            $login = new Session;
 
-        $login = new Session;
+            $login_user = $login->login_user($username, $password);
 
-        if ($login_user = $login->login_user($username, $password)) {
-            header("Location: index.php");
-        } elseif (empty($username) && empty($password)) {
-            $msg = "This fields should not be empty";
-        } elseif ($_POST['username'] != $username && $_POST['password'] != $password) {
-            $msg = "Username or Password is incorrect";
-        } else {
-            header("Location: login.php");
-            return false;
-        }
-    }
+            if ($login_user) {
+                header("Location: index.php");
+            } elseif (empty($username) && empty($password)) {
+                Session::$msg = "This fields should not be empty";
+            } elseif ($login_user == false) {
+                Session::$msg = "Username or Password is incorrect";
+            } else {
+                header("Location: login.php");
+                Session::$msg = "Incorrect Username or password";
+            }
+
+        }   
 ?>
 <body class="bg-dark">
     <div class="container">
@@ -29,7 +30,7 @@
                     <div class="card-header">Login</div>
                     <div class="card-body">
                         <div class="text-center">
-                            <h1 class="text-danger"><?= $msg; ?></h1>
+                            <h1 class="text-danger"><?= Session::$msg; ?></h1>
                         </div>
                         <h4 class="card-title text-center">Enter Credentials</h4>
                         <form action="" method="post">
