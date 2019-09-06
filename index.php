@@ -4,13 +4,18 @@
     if (empty($_SESSION['user_id'])) {
         header("Location: login.php");
     }
+
+
 ?>
+
+
 <body class="bg-dark">
     <div class="container mt-5">
         <div class="text-white">
             <div class="table-responsive">
                 <div class="d-block">
                     <h1 class="text-light"><?php echo $_SESSION['username']; ?></h1>
+                    
                     <a href="logout.php">Logout</a>
                 </div>
 
@@ -18,9 +23,9 @@
                     <?php
                         $result = $database->display_user(); 
 
-                        if ($_SESSION['user_type'] == 'admin') {
+                        if ($_SESSION['user_type'] === 'admin') {
                             $result = $database->display_user(); 
-                        } elseif($_SESSION['user_type'] == 'user') {
+                        } elseif($_SESSION['user_type'] === 'user') {
                             $result = $database->display_user_by_id($_SESSION['user_id']);
                         }
                     ?>

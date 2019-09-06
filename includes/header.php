@@ -1,8 +1,7 @@
 <?php
 ob_start();
-include "./class/database.php";
-include "./class/session.php";
-include "./class/validation.php";
+
+require "./init/init.php";
 
 session_start();
 

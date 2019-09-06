@@ -30,13 +30,4 @@ include "crud.php";
         }
     }
 
-$database = new Database;
-
-
-
-
-
-
-
-
 ?>
